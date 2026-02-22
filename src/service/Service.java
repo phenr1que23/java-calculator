@@ -4,21 +4,21 @@ import java.lang.Math;
 import javax.swing.*;
 
 public class Service {
-    static double a, b;
-    static String oper = "";
+    private double a, b;
+    private String oper = "";
 
-    public static void clear_all(JLabel display){
+    public void clear_all(JLabel display){
         display.setText("0");
     }
 
-    public static void write_number(JLabel display, JButton button){
+    public void write_number(JLabel display, JButton button){
         if(display.getText().equals("0") || display.getText().equals("Infinity") || display.getText().equals("NaN")){
             display.setText(button.getText());
             return;
         }
         display.setText(display.getText() + button.getText());
     }
-    public static void write_dot(JLabel display, JButton button){
+    public void write_dot(JLabel display, JButton button){
         if(!display.getText().contains(".")) {
             if(display.getText().equals("Infinity") || display.getText().equals("NaN")){
                 display.setText("0");
@@ -27,7 +27,7 @@ public class Service {
         }
     }
 
-    public static void reverse(JLabel display){
+    public void reverse(JLabel display){
         if(!display.getText().equals("0")){
             double number = Double.parseDouble(display.getText()) * -1;
             if(number == (int) number){
@@ -38,21 +38,21 @@ public class Service {
         }
     }
 
-    public static void set_oper(JLabel display, JButton button){
+    public void set_oper(JLabel display, JButton button){
         oper = button.getText();
         set_a(display);
         clear_all(display);
     }
 
-    public static void set_a(JLabel display) {
+    public void set_a(JLabel display) {
         a = Double.parseDouble(display.getText());
     }
 
-    public static void set_b(JLabel display) {
+    public void set_b(JLabel display) {
         b = Double.parseDouble(display.getText());
     }
 
-    public static void calculate(JLabel display){
+    public void calculate(JLabel display){
         if(oper.isEmpty()){
             System.out.println("vazio");
             return;
@@ -95,27 +95,27 @@ public class Service {
         b = 0;
     }
 
-    public static double sum(double a, double b){
+    public double sum(double a, double b){
         return a + b;
     }
 
-    public static double subtraction(double a, double b){
+    public double subtraction(double a, double b){
         return a - b;
     }
 
-    public static double multiplication(double a, double b){
+    public double multiplication(double a, double b){
         return a * b;
     }
 
-    public static double division(double a, double b){
+    public double division(double a, double b){
         return a/b;
     }
 
-    public static void sqrt(JLabel display){
+    public void sqrt(JLabel display){
         display.setText(String.valueOf(Math.sqrt(Double.parseDouble(display.getText()))));
     }
 
-    public static void percentage(JLabel display){
+    public void percentage(JLabel display){
         display.setText(String.valueOf(Double.parseDouble(display.getText()) / 100));
     }
 

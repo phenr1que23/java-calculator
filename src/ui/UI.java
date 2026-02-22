@@ -10,16 +10,17 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class UI {
-    private static JLabel display;
+    private JLabel display;
+    private Service service = new Service();
 
-    public static void initialize_ui(){
+    public void initialize_ui(){
         JFrame window = create_window();
         create_visor(window);
         create_button(window);
         window.setVisible(true);
     }
 
-    private static JFrame create_window(){
+    private JFrame create_window(){
         JFrame window = new JFrame("calculator");
         GridBagLayout layout = new GridBagLayout();
         layout.columnWeights = new double[]{1, 1, 1, 1};
@@ -31,7 +32,7 @@ public class UI {
         return window;
     }
 
-    private static void create_visor(JFrame window){
+    private void create_visor(JFrame window){
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
@@ -43,7 +44,7 @@ public class UI {
         window.add(display, c);
     }
 
-    private static void create_button(JFrame window){
+    private void create_button(JFrame window){
         int rows = 5, columns = 4, indexButton = 0;
         String [] buttonsText = {
                 "AC", "+/-", "%", "/",
@@ -71,28 +72,28 @@ public class UI {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(button.getText().equals("AC")){
-                            Service.clear_all(display);
+                            service.clear_all(display);
                         }
                         else if(buttonsMap.get(button.getText()).equals("numbers")){
-                            Service.write_number(display, button);
+                            service.write_number(display, button);
                         }
                         else if(button.getText().equals(".")){
-                            Service.write_dot(display, button);
+                            service.write_dot(display, button);
                         }
                         else if(button.getText().equals("+/-")){
-                            Service.reverse(display);
+                            service.reverse(display);
                         }
                         else if(buttonsMap.get(button.getText()).equals("opers")){
-                            Service.set_oper(display, button);
+                            service.set_oper(display, button);
                         }
                         else if(button.getText().equals("=")){
-                            Service.calculate(display);
+                            service.calculate(display);
                         }
                         else if(button.getText().equals("SQRT")){
-                            Service.sqrt(display);
+                            service.sqrt(display);
                         }
                         else if(button.getText().equals("%")){
-                            Service.percentage(display);
+                            service.percentage(display);
                         }
                     }
                 });
@@ -102,7 +103,7 @@ public class UI {
         }
     }
 
-    private static HashMap<String, String> getStringStringHashMap() {
+    private HashMap<String, String> getStringStringHashMap() {
         HashMap<String, String> buttonsMap = new HashMap<>();
         buttonsMap.put("+", "opers");
         buttonsMap.put("-", "opers");
@@ -127,7 +128,7 @@ public class UI {
         return buttonsMap;
     }
 
-    private static Color fill_button(JButton button, HashMap<String, String> buttonsMap){
+    private Color fill_button(JButton button, HashMap<String, String> buttonsMap){
         if(buttonsMap.get(button.getText()).equals("opers") || buttonsMap.get(button.getText()).equals("equal") ){
             return new Color(255,165,0);
         }
@@ -137,7 +138,7 @@ public class UI {
             return new Color(211,211,211);
     }
 
-    private static Color fill_foreground_button(JButton button, HashMap<String, String> buttonsMap){
+    private Color fill_foreground_button(JButton button, HashMap<String, String> buttonsMap){
         if(buttonsMap.get(button.getText()).equals("numbers") || buttonsMap.get(button.getText()).equals("opers") || buttonsMap.get(button.getText()).equals("equal")  ){
             return new Color(255,255,255);
         }

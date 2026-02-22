@@ -4,6 +4,7 @@ import ui.UI;
 
 class Main{
     public static void main(String[] args){
-        UI.initialize_ui();
+        UI ui = new UI();
+        ui.initialize_ui();
     }
 }
