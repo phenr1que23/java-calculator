@@ -1,6 +1,5 @@
 package ui;
 
-
 import service.Service;
 
 import javax.swing.*;
@@ -72,28 +71,31 @@ public class UI {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(button.getText().equals("AC")){
-                            service.clear_all(display);
+                            clear_all(display);
                         }
                         else if(buttonsMap.get(button.getText()).equals("numbers")){
-                            service.write_number(display, button);
+                            write_number(display, button);
                         }
                         else if(button.getText().equals(".")){
-                            service.write_dot(display, button);
+                            write_dot(display, button);
                         }
                         else if(button.getText().equals("+/-")){
-                            service.reverse(display);
+                            reverse(display);
                         }
                         else if(buttonsMap.get(button.getText()).equals("opers")){
-                            service.set_oper(display, button);
+                            set_oper(display, button);
                         }
                         else if(button.getText().equals("=")){
-                            service.calculate(display);
+                            set_b(display);
+                            display.setText(String.valueOf(service.calculate()));
                         }
                         else if(button.getText().equals("SQRT")){
-                            service.sqrt(display);
+                            service.a = Double.parseDouble(display.getText());
+                            display.setText(String.valueOf(service.sqrt()));
                         }
                         else if(button.getText().equals("%")){
-                            service.percentage(display);
+                            service.a = Double.parseDouble(display.getText());
+                            display.setText(String.valueOf(service.percentage()));
                         }
                     }
                 });
@@ -143,5 +145,50 @@ public class UI {
             return new Color(255,255,255);
         }
         return new Color(0, 0, 0);
+    }
+
+    public void clear_all(JLabel display){
+        display.setText("0");
+    }
+
+    public void write_number(JLabel display, JButton button){
+        if(display.getText().equals("0") || display.getText().equals("Infinity") || display.getText().equals("NaN")){
+            display.setText(button.getText());
+            return;
+        }
+        display.setText(display.getText() + button.getText());
+    }
+
+    public void write_dot(JLabel display, JButton button){
+        if(!display.getText().contains(".")) {
+            if(display.getText().equals("Infinity") || display.getText().equals("NaN")){
+                display.setText("0");
+            }
+            display.setText(display.getText() + button.getText());
+        }
+    }
+
+    public void reverse(JLabel display){
+        if(!display.getText().equals("0")){
+            double number = Double.parseDouble(display.getText()) * -1;
+            if(number == (int) number){
+                display.setText(String.valueOf((int) number));
+                return;
+            }
+            display.setText(String.valueOf(number));
+        }
+    }
+
+    public void set_oper(JLabel display, JButton button){
+        service.oper = button.getText();
+        set_a(display);
+    }
+    public void set_a(JLabel display) {
+        service.a = Double.parseDouble(display.getText());
+        display.setText("0");
+    }
+
+    public void set_b(JLabel display) {
+        service.b = Double.parseDouble(display.getText());
     }
 }
